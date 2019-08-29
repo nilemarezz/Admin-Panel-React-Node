@@ -5,9 +5,18 @@ const Login = () => {
     const [user,setUser] = useState("");
     const [password,setPassword] = useState("") 
 
-    const SubmitForm = (e) =>{
+    const SubmitForm = async (e) =>{
         e.preventDefault()
-        console.log(user,password)
+        const User = {user:user,password:password}
+        const response = await fetch("http://localhost:5000/auth/login", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json;charset=utf-8"
+            },
+            body: JSON.stringify(User)
+          });
+        const data = await response.json();
+        console.log(data)
     }
     return (
         <div class="login">
