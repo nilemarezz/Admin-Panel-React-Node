@@ -2,7 +2,22 @@ const express = require("express");
 const router = express.Router();
 const jwt = require("jsonwebtoken");
 const AdminUser = require("../../models/AdminUser");
-
+const verify = require("./verifyToken.js");
+router.get("/getAdminProfile", verify, async (req, res) => {
+  try {
+    const data = await AdminUser.findOne({ _id: req.user._id });
+    console.log(data);
+    res.json({
+      AdminProfile: {
+        user: data.user,
+        name: data.name,
+        department: data.department
+      }
+    });
+  } catch (err) {
+    res.json({ errorMsg: "Something went Wrong , Try again" });
+  }
+});
 router.post("/addAdmin", async (req, res) => {
   const user = req.body.user;
   const password = req.body.password;

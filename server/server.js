@@ -13,10 +13,12 @@ app.use(bodyParser.urlencoded({extended:true}))
 app.use(bodyParser.json())
 app.use(cors())
 
-const LoginRoute = require('./route/Auth/AuthRoute')
-app.use("/auth", LoginRoute);
-const ItemRoute = require('./route/Items/userItem')
-app.use("/Items", ItemRoute);
+const AuthRoute = require('./route/Auth/AuthAdminRoute')
+app.use("/auth/admin", AuthRoute);
+const Customerroute = require('./route/Items/Customers')
+app.use("/Customer", Customerroute);
+const Foodroute = require('./route/Items/Foods')
+app.use("/Food", Foodroute);
 
 
 const PORT = 5000;

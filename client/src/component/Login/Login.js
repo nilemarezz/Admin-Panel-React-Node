@@ -8,7 +8,7 @@ const Login = () => {
     const SubmitForm = async (e) =>{
         e.preventDefault()
         const User = {user:user,password:password}
-        const response = await fetch("http://localhost:5000/auth/login", {
+        const response = await fetch("http://localhost:5000/auth/admin/login", {
             method: "POST",
             headers: {
               "Content-Type": "application/json;charset=utf-8"
