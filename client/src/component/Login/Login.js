@@ -1,22 +1,16 @@
 import React,{useState} from 'react'
 import './Login.css'
 import { Redirect } from "react-router-dom";
-const Login = () => {
+import {LoginUser} from '../../actions/AuthAdminAction'
+import { connect } from "react-redux";
+const Login = (props) => {
     const [user,setUser] = useState("");
     const [password,setPassword] = useState("") 
 
     const SubmitForm = async (e) =>{
         e.preventDefault()
         const User = {user:user,password:password}
-        const response = await fetch("http://localhost:5000/auth/admin/login", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json;charset=utf-8"
-            },
-            body: JSON.stringify(User)
-          });
-        const data = await response.json();
-        console.log(data)
+        props.LoginUser(User)
     }
     return (
         <div class="login">
@@ -32,5 +26,7 @@ const Login = () => {
       </div>
     )
 }
-
-export default Login;
+const mapStateToProps = state => {
+  return state;
+};
+export default connect(mapStateToProps,{LoginUser})(Login);

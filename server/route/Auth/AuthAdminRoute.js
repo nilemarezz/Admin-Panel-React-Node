@@ -3,6 +3,7 @@ const router = express.Router();
 const jwt = require("jsonwebtoken");
 const AdminUser = require("../../models/AdminUser");
 const verify = require("./verifyToken.js");
+const bcrypt = require("bcrypt");
 router.get("/getAdminProfile", verify, async (req, res) => {
   try {
     const data = await AdminUser.findOne({ _id: req.user._id });
@@ -19,8 +20,10 @@ router.get("/getAdminProfile", verify, async (req, res) => {
   }
 });
 router.post("/addAdmin", async (req, res) => {
+  const salt = await bcrypt.genSalt(10);
+  const hashPassword = await bcrypt.hash(req.body.password, salt);
   const user = req.body.user;
-  const password = req.body.password;
+  const password = hashPassword;
   const name = req.body.name;
   const department = req.body.department;
   const newAdmin = { user, password, name, department };
@@ -41,7 +44,8 @@ router.post("/login", async (req, res) => {
     if (!userAdmin) {
       res.json({ errorMsg: "Username does not exist" });
     } else {
-      if (userAdmin.password !== password) {
+      const validPass = await bcrypt.compare(req.body.password, userAdmin.password);
+      if (!validPass) {
         res.json({ errorMsg: "Password not match , try again" });
       } else {
         const token = jwt.sign(
@@ -54,7 +58,7 @@ router.post("/login", async (req, res) => {
             user: userAdmin.user,
             name: userAdmin.name,
             department: userAdmin.department
-          }
+          },successMsg: "Login Success"
         });
       }
     }
