@@ -10,7 +10,9 @@ const Login = (props) => {
     const SubmitForm = async (e) =>{
         e.preventDefault()
         const User = {user:user,password:password}
-        props.LoginUser(User)
+        await props.LoginUser(User)
+        window.location.reload();
+        
     }
     return (
         <div class="login">

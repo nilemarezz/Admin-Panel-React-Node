@@ -1,6 +1,11 @@
 import React from "react";
 
 const Header = () => {
+ const SignOut = async () =>{
+  await localStorage.removeItem("token");
+  window.location.reload();
+ }
+  
   return (
     <div>
       <header className="main-header">
@@ -51,9 +56,9 @@ const Header = () => {
                       </a>
                     </div>
                     <div className="pull-right">
-                      <a href="#" className="btn btn-default btn-flat">
+                      <button className="btn btn-default btn-flat" onClick={SignOut}>
                         Sign out
-                      </a>
+                      </button>
                     </div>
                   </li>
                 </ul>
