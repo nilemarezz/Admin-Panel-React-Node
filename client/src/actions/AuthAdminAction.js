@@ -18,25 +18,26 @@ export const LoginUser = AdminUser => {
   };
 };
 
-
 export const getAdminProfile = AdminUser => {
   return async (dispatch, getState) => {
-    const response = await fetch("http://localhost:5000/auth/admin/getAdminProfile", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json;charset=utf-8",
-        "auth-token": localStorage.getItem("token")
-      },
-      body: JSON.stringify(AdminUser)
-    });
+    const response = await fetch(
+      "http://localhost:5000/auth/admin/getAdminProfile",
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json;charset=utf-8",
+          "auth-token": localStorage.getItem("token")
+        },
+        body: JSON.stringify(AdminUser)
+      }
+    );
     const data = await response.json();
     console.log(data)
-    if (data.token) {
-      localStorage.setItem("token", data.token);
-      dispatch({ type: "GETADMIN_SUCCESS", payload: data });
-    } else {
+    if (!data.AdminProfile) {
       dispatch({ type: "GETADMIN_FAIL", payload: data });
+      
+    } else {
+      dispatch({ type: "GETADMIN_SUCCESS", payload: data });
     }
   };
 };
-

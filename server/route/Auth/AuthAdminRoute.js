@@ -13,7 +13,9 @@ router.get("/getAdminProfile", verify, async (req, res) => {
         user: data.user,
         name: data.name,
         department: data.department
-      }
+      },
+      successMsg:"Get Admin Profile Success"
+
     });
   } catch (err) {
     res.json({ errorMsg: "Something went Wrong , Try again" });

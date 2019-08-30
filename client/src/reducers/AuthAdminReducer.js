@@ -20,10 +20,20 @@ export default function(state = initialState, action) {
         ...state,
         errorMsg: action.payload.errorMsg
       };
-    case "GETADMIN_SUCCESS" :
-        console.log(action.data)
+    case "GETADMIN_SUCCESS":
+        
+      return {
+        ...state,
+        user: action.payload.AdminProfile,
+        isLogin: true,
+        errorMsg: null,
+        successMsg: action.payload.successMsg
+      };
     case "GETADMIN_FAIL":
-        console.log(action.data)
+      return {
+        ...state,
+        errorMsg: action.payload.errorMsg
+      };
     default:
       return state;
   }
