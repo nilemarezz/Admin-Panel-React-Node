@@ -32,7 +32,7 @@ export const getAdminProfile = AdminUser => {
       }
     );
     const data = await response.json();
-    console.log(data)
+    
     if (!data.AdminProfile) {
       dispatch({ type: "GETADMIN_FAIL", payload: data });
       

@@ -7,6 +7,7 @@ import Login from "./Login/Login";
 import { connect } from "react-redux";
 import { getAdminProfile } from "../actions/AuthAdminAction";
 import { BrowserRouter, Route } from "react-router-dom";
+import Profile from "./Layout/Profile";
 
 const App = props => {
   useEffect(() => {
@@ -25,7 +26,7 @@ const App = props => {
             <Header />
             <Menu />
             <Route path="/" component={Home} exact />
-
+            <Route path="/profile" component={Profile} exact />
             <Footer />
           </div>
         </BrowserRouter>

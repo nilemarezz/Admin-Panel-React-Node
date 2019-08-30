@@ -1,11 +1,12 @@
 import React from "react";
+import { connect } from "react-redux";
+import { Link } from "react-router-dom";
+const Header = props => {
+  const SignOut = async () => {
+    await localStorage.removeItem("token");
+    window.location.reload();
+  };
 
-const Header = () => {
- const SignOut = async () =>{
-  await localStorage.removeItem("token");
-  window.location.reload();
- }
-  
   return (
     <div>
       <header className="main-header">
@@ -37,26 +38,28 @@ const Header = () => {
               {/* User Account: style can be found in dropdown.less */}
               <li className="dropdown user user-menu">
                 <a href="#" className="dropdown-toggle" data-toggle="dropdown">
-                  <span className="hidden-xs">Alexander Pierce</span>
+                  <span className="hidden-xs">{props.name}</span>
                 </a>
                 <ul className="dropdown-menu">
                   {/* User image */}
                   <li className="user-header">
                     <p>
-                      Alexander Pierce - Web Developer
-                      <small>Member since Nov. 2012</small>
+                      {props.name} - {props.department}
                     </p>
                   </li>
 
                   {/* Menu Footer*/}
                   <li className="user-footer">
                     <div className="pull-left">
-                      <a href="#" className="btn btn-default btn-flat">
+                      <Link to="/profile" className="btn btn-default btn-flat">
                         Profile
-                      </a>
+                      </Link>
                     </div>
                     <div className="pull-right">
-                      <button className="btn btn-default btn-flat" onClick={SignOut}>
+                      <button
+                        className="btn btn-default btn-flat"
+                        onClick={SignOut}
+                      >
                         Sign out
                       </button>
                     </div>
@@ -76,5 +79,7 @@ const Header = () => {
     </div>
   );
 };
-
-export default Header;
+const mapStateToProps = state => {
+  return state.authAdmin.user;
+};
+export default connect(mapStateToProps)(Header);
