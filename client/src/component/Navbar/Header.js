@@ -11,7 +11,7 @@ const Header = props => {
     <div>
       <header className="main-header">
         {/* Logo */}
-        <a href="index2.html" className="logo">
+        <Link to="/"  className="logo">
           {/* mini logo for sidebar mini 50x50 pixels */}
           <span className="logo-mini">
             <b>Ad</b>
@@ -20,7 +20,7 @@ const Header = props => {
           <span className="logo-lg">
             <b>Admin</b>Panel
           </span>
-        </a>
+        </Link>
         {/* Header Navbar: style can be found in header.less */}
         <nav className="navbar navbar-static-top">
           {/* Sidebar toggle button*/}
@@ -67,11 +67,7 @@ const Header = props => {
                 </ul>
               </li>
               {/* Control Sidebar Toggle Button */}
-              <li>
-                <a href="#" data-toggle="control-sidebar">
-                  <i className="fa fa-gears" />
-                </a>
-              </li>
+              
             </ul>
           </div>
         </nav>

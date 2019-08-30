@@ -1,5 +1,5 @@
 import React from "react";
-
+import { Link } from "react-router-dom";
 const Menu = () => {
   return (
     <div>
@@ -14,9 +14,9 @@ const Menu = () => {
             <li className="header">MAIN NAVIGATION</li>
 
             <li>
-              <a href="pages/widgets.html">
+              <Link to="/" >
                 <i className="fa fa-dashboard" /> <span>DashBoard</span>
-              </a>
+              </Link>
             </li>
             <li className="treeview">
               <a href="#">
