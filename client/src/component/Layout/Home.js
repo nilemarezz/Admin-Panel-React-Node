@@ -29,6 +29,12 @@ const Home = (props) => {
               color="info-box-icon bg-yellow"
               icon="ion ion-ios-people-outline"
             />
+            <InfoBox
+              title="Admin"
+              amount={props.Admin.NumOfAdmin}
+              color="info-box-icon bg-red"
+              icon="ion ion-ios-people-outline"
+            />
           </div>
         </section>
       </section>

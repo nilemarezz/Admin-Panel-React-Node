@@ -7,7 +7,7 @@ const bcrypt = require("bcrypt");
 router.get("/getAdminProfile", verify, async (req, res) => {
   try {
     const data = await AdminUser.findOne({ _id: req.user._id });
-    console.log(data);
+    
     res.json({
       AdminProfile: {
         user: data.user,

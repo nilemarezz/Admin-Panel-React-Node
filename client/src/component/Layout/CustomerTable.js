@@ -10,11 +10,7 @@ const UserAdminTable = props => {
       <section className="content-header">
         <h1>Customer Data Tables</h1>
       </section>
-      <div className="content">
-          <form>
-              <input type="text"/>
-          </form>
-      </div>
+      
       <section className="content">
         <div className="row">
           <div className="col-xs-12">

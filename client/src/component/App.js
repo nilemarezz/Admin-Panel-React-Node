@@ -10,7 +10,7 @@ import { BrowserRouter, Route } from "react-router-dom";
 import Profile from "./Layout/Profile";
 import userTable from './Layout/CustomerTable'
 import {GetItemAdmin} from '../actions/GetItemAdmin'
-
+import FoodTable from './Layout/FoodTable'
 const App = props => {
   const getAllItems = async () => {
     await props.getAdminProfile();
@@ -37,6 +37,7 @@ const App = props => {
             <Route path="/" component={Home} exact />
             <Route path="/profile" component={Profile} exact />
             <Route path="/CustomerTable" component={userTable} exact />
+            <Route path="/FoodTable" component={FoodTable} exact />
             <Footer />
           </div>
         </BrowserRouter>
