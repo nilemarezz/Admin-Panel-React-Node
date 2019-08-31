@@ -14,7 +14,7 @@ const App = props => {
     props.getAdminProfile();
   }, []);
 
-  console.log(props.authAdmin.token);
+  
 
   if (!props.authAdmin.token) {
     return <Login />;

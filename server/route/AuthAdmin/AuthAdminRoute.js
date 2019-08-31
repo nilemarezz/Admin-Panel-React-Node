@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const jwt = require("jsonwebtoken");
 const AdminUser = require("../../models/AdminUser");
-const verify = require("./verifyToken.js");
+const verify = require("./verifyToken");
 const bcrypt = require("bcrypt");
 router.get("/getAdminProfile", verify, async (req, res) => {
   try {

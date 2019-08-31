@@ -1,6 +1,17 @@
-import React from "react";
+import React,{useState} from "react";
 import InfoBox from "./InfoBox";
-const Home = () => {
+import { connect } from "react-redux";
+import {GetItemAdmin} from '../../actions/GetItemAdmin'
+const Home = (props) => {
+  useState(()=>{
+    props.GetItemAdmin()
+  },[])
+  console.log(props)
+  if(props.Customer === null || props.Food === null){
+    return <div></div>
+  }else{
+
+  
   return (
     <div className="content-wrapper">
       {/* Content Header (Page header) */}
@@ -10,13 +21,13 @@ const Home = () => {
           <div className="row">
             <InfoBox
               title="Items"
-              amount="60"
+              amount={props.Food.NumOfFoods}
               color="info-box-icon bg-green"
               icon="ion ion-ios-cart-outline"
             />
             <InfoBox
               title="Member"
-              amount="20"
+              amount={props.Customer.NumOfCustomer}
               color="info-box-icon bg-yellow"
               icon="ion ion-ios-people-outline"
             />
@@ -26,5 +37,8 @@ const Home = () => {
     </div>
   );
 };
-
-export default Home;
+}
+const mapStateToProps = state => {
+  return state.ItemAdmin;
+};
+export default connect(mapStateToProps,{GetItemAdmin})(Home);

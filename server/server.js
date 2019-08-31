@@ -13,12 +13,11 @@ app.use(bodyParser.urlencoded({extended:true}))
 app.use(bodyParser.json())
 app.use(cors())
 
-const AuthRoute = require('./route/Auth/AuthAdminRoute')
+const AuthRoute = require('./route/AuthAdmin/AuthAdminRoute')
 app.use("/auth/admin", AuthRoute);
-const Customerroute = require('./route/Items/Customers')
-app.use("/Customer", Customerroute);
-const Foodroute = require('./route/Items/Foods')
-app.use("/Food", Foodroute);
+const ItemAdminRoute = require('./route/ItemsAdmin/ItemAdmin')
+app.use("/ItemAdmin", ItemAdminRoute);
+
 
 
 const PORT = 5000;
