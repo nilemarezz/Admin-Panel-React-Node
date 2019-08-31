@@ -5,6 +5,11 @@ const FoodTable = props => {
   const [amount,setamount] = useState("");
   const [description,setdescription] = useState("");
   const [price,setprice] = useState("");
+
+  const submitForm = (e) =>{
+    e.preventDefault();
+    console.log(name)
+  }
   if (!props.FoodsList) {
     return <div></div>;
   } else {
@@ -15,13 +20,13 @@ const FoodTable = props => {
           <h1>Food Data Tables</h1>
         </section>
         <section className="content">
-          <form>
+          <form onSubmit={submitForm}>
             <div class="row">
               <div class="col-sm-4">
-                <input type="text" class="form-control" placeholder="Name" />
+                <input type="text" class="form-control" placeholder="Name" value={name} onChange={(e)=>setName(e.target.value)}/>
               </div>
               <div class="col-sm-4">
-                <input type="text" class="form-control" placeholder="Amount" />
+                <input type="text" class="form-control" placeholder="Amount" value={amount} onChange={(e)=>setamount(e.target.value)}/>
               </div>
             </div>
             <div class="row">
@@ -30,10 +35,12 @@ const FoodTable = props => {
                   type="text"
                   class="form-control"
                   placeholder="Description"
+                  value={description}
+                  onChange={(e)=>setdescription(e.target.value)}
                 />
               </div>
               <div class="col-sm-4">
-                <input type="text" class="form-control" placeholder="Price" />
+                <input type="text" class="form-control" placeholder="Price" value={price} onChange={(e)=>setprice(e.target.value)}/>
               </div>
               <div class="col-sm-4">
                 <input type="submit" class="btn btn-primary" />
