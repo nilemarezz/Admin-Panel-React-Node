@@ -32,7 +32,11 @@ router.post("/addFood", verify,async (req, res) => {
     description: req.body.description,
     price: req.body.price
   };
+  try{
   const data = await Foods.create(newFood);
   res.json({newFood:data})
+}catch(err){
+  res.json({errorMsg:"Add fail , try again"})
+}
 });
 module.exports = router;

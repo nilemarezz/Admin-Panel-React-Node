@@ -1,4 +1,4 @@
-import React, { useState ,useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { AddFoodAdmin } from "../../actions/AddItems";
 const FoodTable = props => {
@@ -17,14 +17,14 @@ const FoodTable = props => {
     };
     props.AddFoodAdmin(newFood);
   };
-
-  useEffect(()=>{
+console.log(props)
+  useEffect(() => {
     const script = document.createElement("script");
-    script.src = "js/content.js"
+    script.src = "js/content.js";
     script.async = true;
-    document.body.appendChild(script)
-  })
-  if (!props.FoodsList) {
+    document.body.appendChild(script);
+  });
+  if (!props.food) {
     return <div></div>;
   } else {
     return (
@@ -79,6 +79,9 @@ const FoodTable = props => {
               </div>
             </div>
           </form>
+          <div style={{color:"red",marginTop:"10px",display:props.errorMsg ? "" : "none"}}>
+            {props.errorMsg}
+          </div>
         </section>
 
         <section className="content" style={{ marginTop: "-120px" }}>
@@ -91,7 +94,6 @@ const FoodTable = props => {
                     id="example1_wrapper"
                     className="dataTables_wrapper form-inline dt-bootstrap"
                   >
-                   
                     <div className="row">
                       <div className="col-sm-12">
                         <table
@@ -159,7 +161,7 @@ const FoodTable = props => {
                             </tr>
                           </thead>
                           <tbody>
-                            {props.FoodsList.map(item => {
+                            {props.food.FoodsList.map(item => {
                               return (
                                 <tr role="row" className="odd">
                                   <td>{item.name}</td>
@@ -193,7 +195,7 @@ const FoodTable = props => {
                         </table>
                       </div>
                     </div>
-                                    </div>
+                  </div>
                 </div>
                 {/* /.box-body */}
               </div>
@@ -209,7 +211,7 @@ const FoodTable = props => {
   }
 };
 const mapStateToProps = state => {
-  return state.ItemAdmin.Food;
+  return {food:state.ItemAdmin.Food,errorMsg:state.ItemAdmin.Errormsg};
 };
 export default connect(
   mapStateToProps,

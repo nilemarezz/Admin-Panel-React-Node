@@ -10,9 +10,11 @@ export const AddFoodAdmin = newFood => {
       });
       const data = await response.json();
       console.log(data)
-      
+      if(data.newFood){
         dispatch({ type: "ADDFOOD_SUCCESS", payload: data });
-      }
+      }else{
+        dispatch({ type: "ADDFOOD_FAIL", payload: data });
+      }}
     };
   
   

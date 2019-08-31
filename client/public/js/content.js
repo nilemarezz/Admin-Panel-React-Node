@@ -1,6 +1,6 @@
   
     $(function () {
-      console.log('eiei')
+      
       $('#example1').DataTable()
       $('#example2').DataTable({
         'paging': true,
