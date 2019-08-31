@@ -3,9 +3,9 @@ import { Link } from "react-router-dom";
 const Menu = () => {
   return (
     <div>
-      <aside className="main-sidebar">
+      <aside className="main-sidebar" style={{height:"140%"}} >
         {/* sidebar: style can be found in sidebar.less */}
-        <section className="sidebar">
+        <section className="sidebar" >
           {/* Sidebar user panel */}
 
           {/* /.search form */}
