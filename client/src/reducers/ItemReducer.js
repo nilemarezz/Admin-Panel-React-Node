@@ -8,7 +8,9 @@ export default function(state = initialState, action) {
   switch (action.type) {
     case "GETITEM_SUCCESS":
       return { Customer: action.payload.Customer, Food: action.payload.Food , Admin: action.payload.Admin};
-   
+    case "ADDFOOD_SUCCESS" :
+      console.log(state.Food)
+      return {...state,Food:[...state.Food,action.payload]}
 
     default:
       return state;

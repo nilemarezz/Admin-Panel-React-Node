@@ -1,15 +1,29 @@
-import React,{useState} from "react";
+import React, { useState ,useEffect} from "react";
 import { connect } from "react-redux";
+import { AddFoodAdmin } from "../../actions/AddItems";
 const FoodTable = props => {
-  const [name,setName] = useState("");
-  const [amount,setamount] = useState("");
-  const [description,setdescription] = useState("");
-  const [price,setprice] = useState("");
+  const [name, setName] = useState("");
+  const [amount, setamount] = useState("");
+  const [description, setdescription] = useState("");
+  const [price, setprice] = useState("");
 
-  const submitForm = (e) =>{
+  const submitForm = e => {
     e.preventDefault();
-    console.log(name)
-  }
+    const newFood = {
+      name,
+      amount,
+      description,
+      price
+    };
+    props.AddFoodAdmin(newFood);
+  };
+
+  useEffect(()=>{
+    const script = document.createElement("script");
+    script.src = "js/content.js"
+    script.async = true;
+    document.body.appendChild(script)
+  })
   if (!props.FoodsList) {
     return <div></div>;
   } else {
@@ -23,10 +37,22 @@ const FoodTable = props => {
           <form onSubmit={submitForm}>
             <div class="row">
               <div class="col-sm-4">
-                <input type="text" class="form-control" placeholder="Name" value={name} onChange={(e)=>setName(e.target.value)}/>
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Name"
+                  value={name}
+                  onChange={e => setName(e.target.value)}
+                />
               </div>
               <div class="col-sm-4">
-                <input type="text" class="form-control" placeholder="Amount" value={amount} onChange={(e)=>setamount(e.target.value)}/>
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Amount"
+                  value={amount}
+                  onChange={e => setamount(e.target.value)}
+                />
               </div>
             </div>
             <div class="row">
@@ -36,11 +62,17 @@ const FoodTable = props => {
                   class="form-control"
                   placeholder="Description"
                   value={description}
-                  onChange={(e)=>setdescription(e.target.value)}
+                  onChange={e => setdescription(e.target.value)}
                 />
               </div>
               <div class="col-sm-4">
-                <input type="text" class="form-control" placeholder="Price" value={price} onChange={(e)=>setprice(e.target.value)}/>
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Price"
+                  value={price}
+                  onChange={e => setprice(e.target.value)}
+                />
               </div>
               <div class="col-sm-4">
                 <input type="submit" class="btn btn-primary" />
@@ -49,7 +81,7 @@ const FoodTable = props => {
           </form>
         </section>
 
-        <section className="content" style={{marginTop:'-120px'}}>
+        <section className="content" style={{ marginTop: "-120px" }}>
           <div className="row">
             <div className="col-xs-12">
               <div className="box">
@@ -59,39 +91,7 @@ const FoodTable = props => {
                     id="example1_wrapper"
                     className="dataTables_wrapper form-inline dt-bootstrap"
                   >
-                    <div className="row">
-                      <div className="col-sm-6">
-                        <div className="dataTables_length" id="example1_length">
-                          <label>
-                            Show{" "}
-                            <select
-                              name="example1_length"
-                              aria-controls="example1"
-                              className="form-control input-sm"
-                            >
-                              <option value={10}>10</option>
-                              <option value={25}>25</option>
-                              <option value={50}>50</option>
-                              <option value={100}>100</option>
-                            </select>{" "}
-                            entries
-                          </label>
-                        </div>
-                      </div>
-                      <div className="col-sm-6">
-                        <div id="example1_filter" className="dataTables_filter">
-                          <label>
-                            Search:
-                            <input
-                              type="search"
-                              className="form-control input-sm"
-                              placeholder
-                              aria-controls="example1"
-                            />
-                          </label>
-                        </div>
-                      </div>
-                    </div>
+                   
                     <div className="row">
                       <div className="col-sm-12">
                         <table
@@ -147,6 +147,15 @@ const FoodTable = props => {
                               >
                                 Price
                               </th>
+                              <th
+                                className="sorting"
+                                tabIndex={0}
+                                aria-controls="example1"
+                                rowSpan={1}
+                                colSpan={1}
+                                aria-label="Platform(s): activate to sort column ascending"
+                                style={{ width: 149 }}
+                              ></th>
                             </tr>
                           </thead>
                           <tbody>
@@ -157,6 +166,11 @@ const FoodTable = props => {
                                   <td>{item.amount}</td>
                                   <td>{item.description}</td>
                                   <td>{item.price}</td>
+                                  <td>
+                                    <button className="btn btn-danger">
+                                      X
+                                    </button>
+                                  </td>
                                 </tr>
                               );
                             })}
@@ -176,68 +190,10 @@ const FoodTable = props => {
                             <td>C</td>
                           </tr> */}
                           </tbody>
-                          
                         </table>
                       </div>
                     </div>
-                    <div className="row">
-                      <div className="col-sm-5">
-                        <div
-                          className="dataTables_info"
-                          id="example1_info"
-                          role="status"
-                          aria-live="polite"
-                        >
-                          Showing 1 to 3 of 3 entries
-                        </div>
-                      </div>
-                      <div className="col-sm-7">
-                        <div
-                          className="dataTables_paginate paging_simple_numbers"
-                          id="example1_paginate"
-                        >
-                          <ul className="pagination">
-                            <li
-                              className="paginate_button previous disabled"
-                              id="example1_previous"
-                            >
-                              <a
-                                href="#"
-                                aria-controls="example1"
-                                data-dt-idx={0}
-                                tabIndex={0}
-                              >
-                                Previous
-                              </a>
-                            </li>
-                            <li className="paginate_button active">
-                              <a
-                                href="#"
-                                aria-controls="example1"
-                                data-dt-idx={1}
-                                tabIndex={0}
-                              >
-                                1
-                              </a>
-                            </li>
-                            <li
-                              className="paginate_button next disabled"
-                              id="example1_next"
-                            >
-                              <a
-                                href="#"
-                                aria-controls="example1"
-                                data-dt-idx={2}
-                                tabIndex={0}
-                              >
-                                Next
-                              </a>
-                            </li>
-                          </ul>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                                    </div>
                 </div>
                 {/* /.box-body */}
               </div>
@@ -255,4 +211,7 @@ const FoodTable = props => {
 const mapStateToProps = state => {
   return state.ItemAdmin.Food;
 };
-export default connect(mapStateToProps)(FoodTable);
+export default connect(
+  mapStateToProps,
+  { AddFoodAdmin }
+)(FoodTable);
