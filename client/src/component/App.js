@@ -8,15 +8,24 @@ import { connect } from "react-redux";
 import { getAdminProfile } from "../actions/AuthAdminAction";
 import { BrowserRouter, Route } from "react-router-dom";
 import Profile from "./Layout/Profile";
+import userTable from './Layout/CustomerTable'
+import {GetItemAdmin} from '../actions/GetItemAdmin'
 
 const App = props => {
+  const getAllItems = async () => {
+    await props.getAdminProfile();
+    await props.GetItemAdmin();
+  }
+  
+
   useEffect(() => {
-    props.getAdminProfile();
+    getAllItems()
   }, []);
 
   
 
-  if (!props.authAdmin.token) {
+  if (!props.authAdmin.token || props.authAdmin.token === undefined ) {
+    
     return <Login />;
   } else {
     return (
@@ -27,6 +36,7 @@ const App = props => {
             <Menu />
             <Route path="/" component={Home} exact />
             <Route path="/profile" component={Profile} exact />
+            <Route path="/CustomerTable" component={userTable} exact />
             <Footer />
           </div>
         </BrowserRouter>
@@ -39,5 +49,5 @@ const mapStateToProps = state => {
 };
 export default connect(
   mapStateToProps,
-  { getAdminProfile }
+  { getAdminProfile ,GetItemAdmin}
 )(App);

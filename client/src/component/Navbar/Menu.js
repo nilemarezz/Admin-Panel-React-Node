@@ -59,14 +59,19 @@ const Menu = () => {
               </a>
               <ul className="treeview-menu">
                 <li>
-                  <a href="pages/tables/simple.html">
-                    <i className="fa fa-circle-o" /> User Table
-                  </a>
+                  <Link to="/AdminTable">
+                    <i className="fa fa-circle-o" /> Admin Table
+                  </Link>
                 </li>
                 <li>
-                  <a href="pages/tables/data.html">
-                    <i className="fa fa-circle-o" /> Item Table
-                  </a>
+                  <Link to="/FoodTable">
+                    <i className="fa fa-circle-o" /> Foods Table
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/CustomerTable">
+                    <i className="fa fa-circle-o" /> Customer Table
+                  </Link>
                 </li>
               </ul>
             </li>

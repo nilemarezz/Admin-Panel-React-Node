@@ -3,14 +3,12 @@ import InfoBox from "./InfoBox";
 import { connect } from "react-redux";
 import {GetItemAdmin} from '../../actions/GetItemAdmin'
 const Home = (props) => {
-  useState(()=>{
-    props.GetItemAdmin()
-  },[])
-  console.log(props)
-  if(props.Customer === null || props.Food === null){
+  
+  
+  if(props.Customer === null || props.Food === null || props.Food === undefined ||  props.Customer === undefined  ){
     return <div></div>
   }else{
-
+    
   
   return (
     <div className="content-wrapper">
