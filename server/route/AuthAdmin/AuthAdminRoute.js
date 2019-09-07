@@ -7,14 +7,14 @@ const bcrypt = require("bcrypt");
 router.get("/getAdminProfile", verify, async (req, res) => {
   try {
     const data = await AdminUser.findOne({ _id: req.user._id });
-    
+
     res.json({
       AdminProfile: {
         user: data.user,
         name: data.name,
         department: data.department
       },
-      successMsg:"Get Admin Profile Success"
+      successMsg: "Get Admin Profile Success"
 
     });
   } catch (err) {
@@ -22,18 +22,30 @@ router.get("/getAdminProfile", verify, async (req, res) => {
   }
 });
 router.post("/addAdmin", async (req, res) => {
-  const salt = await bcrypt.genSalt(10);
-  const hashPassword = await bcrypt.hash(req.body.password, salt);
-  const user = req.body.user;
-  const password = hashPassword;
-  const name = req.body.name;
-  const department = req.body.department;
-  const newAdmin = { user, password, name, department };
   try {
-    const data = await AdminUser.create(newAdmin);
-    res.json({ newAdmin:data});
+    const salt = await bcrypt.genSalt(10);
+    bcrypt.hash(req.body.password, salt, function (err, hash) {
+      if (err) {
+        res.json({ err: err })
+      } else {
+
+
+        const user = req.body.user;
+        const password = hash;
+        const name = req.body.name;
+        const department = req.body.department;
+        const newAdmin = { user, password, name, department };
+        const data = await AdminUser.create(newAdmin);
+        res.json({ newAdmin: data });
+      }
+
+    });
+
+
+
   } catch (err) {
-    res.json({ errorMsg: "Something went Wrong , Try again" });
+
+    res.json({ errorMsg: "Something went Wrong , Try again", err: err });
   }
 });
 
@@ -41,7 +53,7 @@ router.post("/deleteAdmin/:id", async (req, res) => {
   const id = req.params.id;
   try {
     const data = await AdminUser.findByIdAndDelete(id);
-    res.json({ DeleteAdmin:data});
+    res.json({ DeleteAdmin: data });
   } catch (err) {
     res.json({ errorMsg: "Something went Wrong , Try again" });
   }
@@ -70,7 +82,7 @@ router.post("/login", async (req, res) => {
             user: userAdmin.user,
             name: userAdmin.name,
             department: userAdmin.department
-          },successMsg: "Login Success"
+          }, successMsg: "Login Success"
         });
       }
     }

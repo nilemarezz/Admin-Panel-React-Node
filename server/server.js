@@ -4,6 +4,7 @@ const app = express()
 const cors = require('cors');
 const dotevn = require("dotenv");
 const bodyParser = require('body-parser')
+const Admin = require('./models/AdminUser')
 dotevn.config();
 
 mongoose.connect(process.env.DB_URL, { useNewUrlParser: true });
@@ -12,6 +13,11 @@ mongoose.connection.once("open", () => console.log("Connect to Database"));
 app.use(bodyParser.urlencoded({extended:true}))
 app.use(bodyParser.json())
 app.use(cors())
+// const seedAdmin = async ()=>{
+    
+//     await Admin.create({user:"admin",password:"password",name:"Master1",department:"CEO"})
+// }
+// seedAdmin();
 
 const AuthRoute = require('./route/AuthAdmin/AuthAdminRoute')
 app.use("/auth/admin", AuthRoute);

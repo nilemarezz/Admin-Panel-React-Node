@@ -12,6 +12,7 @@
 4. Node.js (Express)
 5. Json Web Token
 6. MongoDB
+7. Docker
 
 ------------
 ### All Pages
