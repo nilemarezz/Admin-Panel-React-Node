@@ -11,6 +11,7 @@ import Profile from "./Layout/Profile";
 import userTable from './Layout/CustomerTable'
 import {GetItemAdmin} from '../actions/GetItemAdmin'
 import FoodTable from './Layout/FoodTable'
+import AdminTable from './Layout/AdminTable'
 const App = props => {
   const getAllItems = async () => {
     await props.getAdminProfile();
@@ -38,6 +39,7 @@ const App = props => {
             <Route path="/profile" component={Profile} exact />
             <Route path="/CustomerTable" component={userTable} exact />
             <Route path="/FoodTable" component={FoodTable} exact />
+            <Route path="/AdminTable" component={AdminTable} exact />
             <Footer />
           </div>
         </BrowserRouter>

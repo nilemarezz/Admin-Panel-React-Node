@@ -30,8 +30,18 @@ router.post("/addAdmin", async (req, res) => {
   const department = req.body.department;
   const newAdmin = { user, password, name, department };
   try {
-    await AdminUser.create(newAdmin);
-    res.json({ successMsg: "Add new Admin Success" });
+    const data = await AdminUser.create(newAdmin);
+    res.json({ newAdmin:data});
+  } catch (err) {
+    res.json({ errorMsg: "Something went Wrong , Try again" });
+  }
+});
+
+router.post("/deleteAdmin/:id", async (req, res) => {
+  const id = req.params.id;
+  try {
+    const data = await AdminUser.findByIdAndDelete(id);
+    res.json({ DeleteAdmin:data});
   } catch (err) {
     res.json({ errorMsg: "Something went Wrong , Try again" });
   }

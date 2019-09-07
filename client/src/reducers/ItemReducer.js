@@ -18,16 +18,27 @@ export default function(state = initialState, action) {
       foods.push(action.payload.newFood);
 
       return { ...state, Food: { FoodsList: foods } };
-    case "ADDFOOD_FAIL":
-      return { ...state, Errormsg: action.payload.errorMsg };
+
     case "DELETEFOOD_SUCCESS":
       let food = state.Food.FoodsList;
       food = food.filter(item => item._id !== action.payload.deleteFood._id);
       return { ...state, Food: { FoodsList: food } };
-    case "DELETEFOOD_FAIL":
-      return { ...state, Errormsg: action.payload.errorMsg }; 
+
     case "EDITAMOUNT_SUCCESS":
-      return state
+      return state;
+
+    case "AddADMIN_SUCCESS":
+      const admin = state.Admin.AdminList;
+      admin.push(action.payload.newAdmin);
+
+      return { ...state, Admin: { AdminList: admin } };
+    case "DELETEADMIN_SUCCESS" :
+        let admins = state.Admin.AdminList;
+        admins = admins.filter(item => item._id !== action.payload.DeleteAdmin._id);
+        return { ...state, Admin: { AdminList: admins } };
+    case "AddADMIN_FAIL":
+    case "ADDFOOD_FAIL":
+    case "DELETEFOOD_FAIL":
     case "EDITAMOUNT_FAIL":
       return { ...state, Errormsg: action.payload.errorMsg };
     default:
