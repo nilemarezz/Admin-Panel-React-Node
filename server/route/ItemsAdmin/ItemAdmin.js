@@ -40,6 +40,16 @@ router.post("/addFood", verify, async (req, res) => {
   }
 });
 
+router.get("/getgender",async (req,res)=>{
+  try{
+    const male = await Customer.find({gender:"Male"})
+    const female = await Customer.find({gender:"Female"})
+    res.json({numOfMale:male.length,numOfFemale:female.length})
+  }catch(err){
+    res.json({errorMsg:err})
+  }
+})
+
 router.post("/addCustomer", verify, async (req, res) => {
   const newCust = {
     user: req.body.name,
@@ -52,7 +62,7 @@ router.post("/addCustomer", verify, async (req, res) => {
     const data = await Customer.create(newCust);
     res.json({ Customer: data });
   } catch (err) {
-    res.json({ errorMsg: "Add fail , try again" ,err:err});
+    res.json({ errorMsg: "Add fail , try again", err: err });
   }
 });
 
@@ -78,10 +88,10 @@ router.post("/deleteFood/:id", verify, async (req, res) => {
 
 router.post("/editFood/:id", verify, async (req, res) => {
   const id = req.params.id;
-  
+
   try {
-    const data = await Foods.findByIdAndUpdate(id,{amount:req.body.amount})
-    res.json({ editAmount:  data , amount :req.body.amount});
+    const data = await Foods.findByIdAndUpdate(id, { amount: req.body.amount });
+    res.json({ editAmount: data, amount: req.body.amount });
   } catch (err) {
     res.json({ errorMsg: "Edit fail , try again" });
   }

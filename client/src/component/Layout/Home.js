@@ -2,6 +2,8 @@ import React,{useState} from "react";
 import InfoBox from "./InfoBox";
 import { connect } from "react-redux";
 import {GetItemAdmin} from '../../actions/GetItemAdmin'
+import GenderChart from './GenderChart'
+import BubbleChart from './BubbleChart'
 const Home = (props) => {
   
   
@@ -35,8 +37,12 @@ const Home = (props) => {
               color="info-box-icon bg-red"
               icon="ion ion-ios-people-outline"
             />
+            
           </div>
         </section>
+        <div className="row" style={{marginLeft:"20px"}}><GenderChart/> </div>
+        <div className="row" style={{marginLeft:"41%",marginTop:"-350px",width:"50%"}}><BubbleChart/> </div>
+        
       </section>
     </div>
   );
