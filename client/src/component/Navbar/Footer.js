@@ -9,7 +9,7 @@ const Footer = () => {
         </div>
         <strong>
           Copyright © 2014-2016{" "}
-          <a href="https://adminlte.io">Almsaeed Studio</a>.
+          <a href="https://github.com/nilemarezz/Admin-panel-react-node">nilemarezz</a>.
         </strong>{" "}
         All rights reserved.
       </footer>

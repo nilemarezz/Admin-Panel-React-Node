@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import { AddFoodAdmin } from "../../actions/AddItems";
+import { AddFoodAdmin, DeleteFoodAdmin,EditAmountFoodAdmin } from "../../actions/ItemsAction";
 const FoodTable = props => {
   const [name, setName] = useState("");
   const [amount, setamount] = useState("");
   const [description, setdescription] = useState("");
   const [price, setprice] = useState("");
+
+  const [editAmount,seteditAmount] = useState("")
 
   const submitForm = e => {
     e.preventDefault();
@@ -16,8 +18,19 @@ const FoodTable = props => {
       price
     };
     props.AddFoodAdmin(newFood);
+    setName("")
+    setamount("")
+    setdescription("")
+    setprice("")
   };
-console.log(props)
+  const deleteItem = id => {
+    props.DeleteFoodAdmin(id);
+  };
+  const setNewAmount = (id) =>{
+    const amout = {amount:editAmount}
+    props.EditAmountFoodAdmin(id,amout)
+  }
+
   useEffect(() => {
     const script = document.createElement("script");
     script.src = "js/content.js";
@@ -55,7 +68,7 @@ console.log(props)
                 />
               </div>
             </div>
-            <div class="row">
+            <div class="row" style={{ marginTop: "10px" }}>
               <div class="col-sm-4">
                 <input
                   type="text"
@@ -79,12 +92,18 @@ console.log(props)
               </div>
             </div>
           </form>
-          <div style={{color:"red",marginTop:"10px",display:props.errorMsg ? "" : "none"}}>
+          <div
+            style={{
+              color: "red",
+              marginTop: "10px",
+              display: props.errorMsg ? "" : "none"
+            }}
+          >
             {props.errorMsg}
           </div>
         </section>
 
-        <section className="content" style={{ marginTop: "-120px" }}>
+        <section className="content" style={{ marginTop: "-150px" }}>
           <div className="row">
             <div className="col-xs-12">
               <div className="box">
@@ -163,13 +182,28 @@ console.log(props)
                           <tbody>
                             {props.food.FoodsList.map(item => {
                               return (
-                                <tr role="row" className="odd">
+                                <tr role="row" className="odd" key={item._id}>
                                   <td>{item.name}</td>
-                                  <td>{item.amount}</td>
+                                  <td>
+                                    <div class="form-group row">
+                                      <div class="col-10">
+                                        <input
+                                          class="form-control"
+                                          value={item.editAmount}
+                                          placeholder={item.amount}
+                                          onChange={(e) => seteditAmount(e.target.value)}
+                                        />
+                                        <button className="btn btn-primary btm-sm" onClick={()=>setNewAmount(item._id)}>Set</button>
+                                      </div>
+                                    </div>
+                                  </td>
                                   <td>{item.description}</td>
                                   <td>{item.price}</td>
                                   <td>
-                                    <button className="btn btn-danger">
+                                    <button
+                                      className="btn btn-danger"
+                                      onClick={() => deleteItem(item._id)}
+                                    >
                                       X
                                     </button>
                                   </td>
@@ -211,9 +245,9 @@ console.log(props)
   }
 };
 const mapStateToProps = state => {
-  return {food:state.ItemAdmin.Food,errorMsg:state.ItemAdmin.Errormsg};
+  return { food: state.ItemAdmin.Food, errorMsg: state.ItemAdmin.Errormsg };
 };
 export default connect(
   mapStateToProps,
-  { AddFoodAdmin }
+  { AddFoodAdmin, DeleteFoodAdmin ,EditAmountFoodAdmin}
 )(FoodTable);
