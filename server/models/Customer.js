@@ -16,6 +16,10 @@ const UserSchema = new mongoose.Schema({
   age:{
     type:Number,
     required: true
+  },
+  gender:{
+    type:String,
+    required:true
   }
   
   

@@ -40,6 +40,32 @@ router.post("/addFood", verify, async (req, res) => {
   }
 });
 
+router.post("/addCustomer", verify, async (req, res) => {
+  const newCust = {
+    user: req.body.name,
+    password: req.body.password,
+    name: req.body.name,
+    age: req.body.age,
+    gender: req.body.gender
+  };
+  try {
+    const data = await Customer.create(newCust);
+    res.json({ Customer: data });
+  } catch (err) {
+    res.json({ errorMsg: "Add fail , try again" ,err:err});
+  }
+});
+
+router.post("/deleteCustomer/:id", verify, async (req, res) => {
+  const id = req.params.id;
+  try {
+    const data = await Customer.findByIdAndDelete(id);
+    res.json({ deleteCustomer: data });
+  } catch (err) {
+    res.json({ errorMsg: "Delete fail , try again" });
+  }
+});
+
 router.post("/deleteFood/:id", verify, async (req, res) => {
   const id = req.params.id;
   try {

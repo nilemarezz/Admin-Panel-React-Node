@@ -32,14 +32,23 @@ export default function(state = initialState, action) {
       admin.push(action.payload.newAdmin);
 
       return { ...state, Admin: { AdminList: admin } };
-    case "DELETEADMIN_SUCCESS" :
-        let admins = state.Admin.AdminList;
-        admins = admins.filter(item => item._id !== action.payload.DeleteAdmin._id);
-        return { ...state, Admin: { AdminList: admins } };
+    case "DELETEADMIN_SUCCESS":
+      let admins = state.Admin.AdminList;
+      admins = admins.filter(
+        item => item._id !== action.payload.DeleteAdmin._id
+      );
+      return { ...state, Admin: { AdminList: admins } };
+    case "DELETECUSTOMER_SUCCESS":
+      let customer = state.Customer.CustomerList;
+      customer = customer.filter(
+        item => item._id !== action.payload.deleteCustomer._id
+      );
+      return { ...state, Customer: { CustomerList: customer } };
     case "AddADMIN_FAIL":
     case "ADDFOOD_FAIL":
     case "DELETEFOOD_FAIL":
     case "EDITAMOUNT_FAIL":
+    case "DELETECUSTOMER_FAIL":
       return { ...state, Errormsg: action.payload.errorMsg };
     default:
       return state;

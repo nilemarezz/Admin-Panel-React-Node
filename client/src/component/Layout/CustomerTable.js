@@ -1,35 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import { AddFoodAdmin, DeleteFoodAdmin,EditAmountFoodAdmin } from "../../actions/ItemsAction";
+import {DeleteCustomer} from '../../actions/CustomerAction'
 const CustomerTable = props => {
-  const [name, setName] = useState("");
-  const [amount, setamount] = useState("");
-  const [description, setdescription] = useState("");
-  const [price, setprice] = useState("");
-
-  const [editAmount,seteditAmount] = useState("")
-
-  const submitForm = e => {
-    e.preventDefault();
-    const newFood = {
-      name,
-      amount,
-      description,
-      price
-    };
-    props.AddFoodAdmin(newFood);
-    setName("")
-    setamount("")
-    setdescription("")
-    setprice("")
-  };
   const deleteItem = id => {
-    props.DeleteFoodAdmin(id);
+    
+    props.DeleteCustomer(id);
   };
-  const setNewAmount = (id) =>{
-    const amout = {amount:editAmount}
-    props.EditAmountFoodAdmin(id,amout)
-  }
 
   useEffect(() => {
     const script = document.createElement("script");
@@ -37,7 +13,7 @@ const CustomerTable = props => {
     script.async = true;
     document.body.appendChild(script);
   });
-  if (!props.food) {
+  if (!props.customer) {
     return <div></div>;
   } else {
     return (
@@ -47,51 +23,6 @@ const CustomerTable = props => {
           <h1>Customer Data Tables</h1>
         </section>
         <section className="content">
-          <form onSubmit={submitForm}>
-            <div class="row">
-              <div class="col-sm-4">
-                <input
-                  type="text"
-                  class="form-control"
-                  placeholder="Name"
-                  value={name}
-                  onChange={e => setName(e.target.value)}
-                />
-              </div>
-              <div class="col-sm-4">
-                <input
-                  type="text"
-                  class="form-control"
-                  placeholder="Amount"
-                  value={amount}
-                  onChange={e => setamount(e.target.value)}
-                />
-              </div>
-            </div>
-            <div class="row" style={{ marginTop: "10px" }}>
-              <div class="col-sm-4">
-                <input
-                  type="text"
-                  class="form-control"
-                  placeholder="Description"
-                  value={description}
-                  onChange={e => setdescription(e.target.value)}
-                />
-              </div>
-              <div class="col-sm-4">
-                <input
-                  type="text"
-                  class="form-control"
-                  placeholder="Price"
-                  value={price}
-                  onChange={e => setprice(e.target.value)}
-                />
-              </div>
-              <div class="col-sm-4">
-                <input type="submit" class="btn btn-primary" />
-              </div>
-            </div>
-          </form>
           <div
             style={{
               color: "red",
@@ -103,7 +34,7 @@ const CustomerTable = props => {
           </div>
         </section>
 
-        <section className="content" style={{ marginTop: "-150px" }}>
+        <section className="content" style={{ marginTop: "-250px" }}>
           <div className="row">
             <div className="col-xs-12">
               <div className="box">
@@ -133,7 +64,7 @@ const CustomerTable = props => {
                                 aria-label="Rendering engine: activate to sort column descending"
                                 style={{ width: 214 }}
                               >
-                                name
+                                user
                               </th>
                               <th
                                 className="sorting"
@@ -144,7 +75,7 @@ const CustomerTable = props => {
                                 aria-label="Browser: activate to sort column ascending"
                                 style={{ width: 193 }}
                               >
-                                amount
+                                password
                               </th>
                               <th
                                 className="sorting"
@@ -155,7 +86,7 @@ const CustomerTable = props => {
                                 aria-label="Platform(s): activate to sort column ascending"
                                 style={{ width: 149 }}
                               >
-                                description
+                                name
                               </th>
                               <th
                                 className="sorting"
@@ -166,7 +97,18 @@ const CustomerTable = props => {
                                 aria-label="Platform(s): activate to sort column ascending"
                                 style={{ width: 149 }}
                               >
-                                Price
+                                age
+                              </th>
+                              <th
+                                className="sorting"
+                                tabIndex={0}
+                                aria-controls="example1"
+                                rowSpan={1}
+                                colSpan={1}
+                                aria-label="Platform(s): activate to sort column ascending"
+                                style={{ width: 149 }}
+                              >
+                                gender
                               </th>
                               <th
                                 className="sorting"
@@ -180,25 +122,14 @@ const CustomerTable = props => {
                             </tr>
                           </thead>
                           <tbody>
-                            {props.food.FoodsList.map(item => {
+                            {props.customer.CustomerList.map(item => {
                               return (
                                 <tr role="row" className="odd" key={item._id}>
+                                  <td>{item.user}</td>
+                                  <td>{item.password}</td>
                                   <td>{item.name}</td>
-                                  <td>
-                                    <div class="form-group row">
-                                      <div class="col-10">
-                                        <input
-                                          class="form-control"
-                                          value={item.editAmount}
-                                          placeholder={item.amount}
-                                          onChange={(e) => seteditAmount(e.target.value)}
-                                        />
-                                        <button className="btn btn-primary btm-sm" onClick={()=>setNewAmount(item._id)}>Set</button>
-                                      </div>
-                                    </div>
-                                  </td>
-                                  <td>{item.description}</td>
-                                  <td>{item.price}</td>
+                                  <td>{item.age}</td>
+                                  <td>{item.gender}</td>
                                   <td>
                                     <button
                                       className="btn btn-danger"
@@ -210,21 +141,6 @@ const CustomerTable = props => {
                                 </tr>
                               );
                             })}
-
-                            {/* <tr role="row" className="even">
-                            <td className="sorting_1">Trident</td>
-                            <td>Internet Explorer 4.0</td>
-                            <td>Win 95+</td>
-                            <td> 4</td>
-                            <td>X</td>
-                          </tr>
-                          <tr role="row" className="odd">
-                            <td className="sorting_1">Trident</td>
-                            <td>Internet Explorer 5.0</td>
-                            <td>Win 95+</td>
-                            <td>5</td>
-                            <td>C</td>
-                          </tr> */}
                           </tbody>
                         </table>
                       </div>
@@ -245,9 +161,9 @@ const CustomerTable = props => {
   }
 };
 const mapStateToProps = state => {
-  return { food: state.ItemAdmin.Food, errorMsg: state.ItemAdmin.Errormsg };
+  return {
+    customer: state.ItemAdmin.Customer,
+    errorMsg: state.ItemAdmin.Errormsg
+  };
 };
-export default connect(
-  mapStateToProps,
-  { AddFoodAdmin, DeleteFoodAdmin ,EditAmountFoodAdmin}
-)(CustomerTable);
+export default connect(mapStateToProps,{DeleteCustomer})(CustomerTable);
