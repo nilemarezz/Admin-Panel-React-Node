@@ -35,6 +35,7 @@ const upload = multer({
 router.get("/", verify, async (req, res) => {
   const CustomerList = await Customer.find({});
   const FoodList = await Foods.find({});
+  console.log(FoodList.length)
   const AdminList = await AdminUser.find({});
   res.json({
     Customer: {
