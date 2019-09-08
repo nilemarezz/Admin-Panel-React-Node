@@ -27,7 +27,7 @@
 * ##### Profile - Admin Profile
 ![](https://github.com/nilemarezz/Admin-panel-react-node/blob/master/Picture/Profile.PNG?raw=true)
 
-* ##### Item Manage - Can View, Create, Edit, Delete the Items
+* ##### Item Manage - Can View, Create, Edit, Upload Picture,Delete the Items
 ![](https://github.com/nilemarezz/Admin-panel-react-node/blob/master/Picture/Food.PNG?raw=true)
 
 * ##### Customer - Can view and Delete the Items
