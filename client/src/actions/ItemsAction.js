@@ -1,6 +1,6 @@
 export const AddFoodAdmin = newFood => {
   return async (dispatch, getState) => {
-    const response = await fetch("http://localhost:5000/ItemAdmin/addFood", {
+    const response = await fetch("http://localhost:5000/Item/addFood", {
       method: "POST",
       headers: {
         "Content-Type": "application/json;charset=utf-8",
@@ -20,7 +20,7 @@ export const AddFoodAdmin = newFood => {
 
 export const DeleteFoodAdmin = id => {
   return async (dispatch, getState) => {
-    const response = await fetch(`http://localhost:5000/ItemAdmin/deleteFood/${id}`, {
+    const response = await fetch(`http://localhost:5000/Item/deleteFood/${id}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json;charset=utf-8",
@@ -40,7 +40,7 @@ export const DeleteFoodAdmin = id => {
 export const EditAmountFoodAdmin = (id,editAmount) => {
   return async (dispatch, getState) => {
     
-    const response = await fetch(`http://localhost:5000/ItemAdmin/editFood/${id}`, {
+    const response = await fetch(`http://localhost:5000/Item/editFood/${id}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json;charset=utf-8",

@@ -23,8 +23,8 @@ app.use(cors())
 
 const AuthRoute = require('./route/AuthAdmin/AuthAdminRoute')
 app.use("/auth/admin", AuthRoute);
-const ItemAdminRoute = require('./route/ItemsAdmin/ItemAdmin')
-app.use("/ItemAdmin", ItemAdminRoute);
+const ItemAdminRoute = require('./route/ItemsRoute/ItemRoute')
+app.use("/Item", ItemAdminRoute);
 
 
 

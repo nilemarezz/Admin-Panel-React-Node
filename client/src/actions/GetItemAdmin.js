@@ -1,6 +1,6 @@
 export const GetItemAdmin = AdminUser => {
   return async (dispatch, getState) => {
-    const response = await fetch("http://localhost:5000/ItemAdmin", {
+    const response = await fetch("http://localhost:5000/Item", {
       method: "GET",
       headers: {
         "Content-Type": "application/json;charset=utf-8",

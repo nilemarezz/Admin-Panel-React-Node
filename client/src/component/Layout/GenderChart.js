@@ -23,7 +23,7 @@ const GenderChart = () => {
   });
 
   const getdata = async () => {
-    const response = await fetch(`http://localhost:5000/ItemAdmin/getgender`);
+    const response = await fetch(`http://localhost:5000/Item/getgender`);
     const data = await response.json()
     setMale(data.numOfMale)
     setFemale(data.numOfFemale)

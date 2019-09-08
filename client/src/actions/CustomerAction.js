@@ -1,7 +1,7 @@
 export const DeleteCustomer = (id) => {
     return async (dispatch, getState) => {
       
-      const response = await fetch(`http://localhost:5000/ItemAdmin/deleteCustomer/${id}`, {
+      const response = await fetch(`http://localhost:5000/Item/deleteCustomer/${id}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json;charset=utf-8",

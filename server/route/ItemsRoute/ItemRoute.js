@@ -4,6 +4,7 @@ const Customer = require("../../models/Customer");
 const verify = require("../AuthAdmin/verifyToken");
 const Foods = require("../../models/Foods");
 const AdminUser = require("../../models/AdminUser");
+const multer = require('multer');
 
 router.get("/", verify, async (req, res) => {
   const CustomerList = await Customer.find({});
@@ -40,7 +41,7 @@ router.post("/addFood", verify, async (req, res) => {
   }
 });
 
-router.get("/getgender",async (req,res)=>{
+router.get("/getgender", verify , async (req,res)=>{
   try{
     const male = await Customer.find({gender:"Male"})
     const female = await Customer.find({gender:"Female"})
