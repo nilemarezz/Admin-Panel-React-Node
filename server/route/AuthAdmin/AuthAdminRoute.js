@@ -15,7 +15,6 @@ router.get("/getAdminProfile", verify, async (req, res) => {
         department: data.department
       },
       successMsg: "Get Admin Profile Success"
-
     });
   } catch (err) {
     res.json({ errorMsg: "Something went Wrong , Try again" });
@@ -24,27 +23,16 @@ router.get("/getAdminProfile", verify, async (req, res) => {
 router.post("/addAdmin", async (req, res) => {
   try {
     const salt = await bcrypt.genSalt(10);
-    bcrypt.hash(req.body.password, salt, function (err, hash) {
-      if (err) {
-        res.json({ err: err })
-      } else {
+    const hash = await bcrypt.hash(req.body.password, salt, null);
 
-
-        const user = req.body.user;
-        const password = hash;
-        const name = req.body.name;
-        const department = req.body.department;
-        const newAdmin = { user, password, name, department };
-        const data = await AdminUser.create(newAdmin);
-        res.json({ newAdmin: data });
-      }
-
-    });
-
-
-
+    const user = req.body.user;
+    const password = hash;
+    const name = req.body.name;
+    const department = req.body.department;
+    const newAdmin = { user, password, name, department };
+    const data = await AdminUser.create(newAdmin);
+    res.json({ newAdmin: data });
   } catch (err) {
-
     res.json({ errorMsg: "Something went Wrong , Try again", err: err });
   }
 });
@@ -68,7 +56,10 @@ router.post("/login", async (req, res) => {
     if (!userAdmin) {
       res.json({ errorMsg: "Username does not exist" });
     } else {
-      const validPass = await bcrypt.compare(req.body.password, userAdmin.password);
+      const validPass = await bcrypt.compare(
+        req.body.password,
+        userAdmin.password
+      );
       if (!validPass) {
         res.json({ errorMsg: "Password not match , try again" });
       } else {
@@ -82,7 +73,8 @@ router.post("/login", async (req, res) => {
             user: userAdmin.user,
             name: userAdmin.name,
             department: userAdmin.department
-          }, successMsg: "Login Success"
+          },
+          successMsg: "Login Success"
         });
       }
     }

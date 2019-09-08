@@ -8,6 +8,8 @@ const Admin = require('./models/AdminUser')
 dotevn.config();
 
 mongoose.connect(process.env.DB_URL, { useNewUrlParser: true });
+//Docker Connect
+//mongoose.connect("mongodb://mongo:27017/backoffice_test", { useNewUrlParser: true });
 mongoose.connection.once("open", () => console.log("Connect to Database"));
 
 app.use(bodyParser.urlencoded({extended:true}))
