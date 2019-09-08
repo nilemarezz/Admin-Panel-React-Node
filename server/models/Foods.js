@@ -16,6 +16,10 @@ const Foods = new mongoose.Schema({
   price:{
     type: String,
     required: true
+  },
+  productImage:{
+    type:String,
+    required:true
   }
   
 });

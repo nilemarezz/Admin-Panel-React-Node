@@ -1,12 +1,20 @@
 export const AddFoodAdmin = newFood => {
   return async (dispatch, getState) => {
+    
+    const postfood = new FormData()
+    postfood.append('name',newFood.name)
+    postfood.append('amount',newFood.amount)
+    postfood.append('price',newFood.price)
+    postfood.append('description',newFood.description)
+    postfood.append('image',newFood.image)
+    
     const response = await fetch("http://localhost:5000/Item/addFood", {
       method: "POST",
       headers: {
-        "Content-Type": "application/json;charset=utf-8",
+        
         "auth-token": localStorage.getItem("token")
       },
-      body: JSON.stringify(newFood)
+      body: postfood
     });
     const data = await response.json();
     

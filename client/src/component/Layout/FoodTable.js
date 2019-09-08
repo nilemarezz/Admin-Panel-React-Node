@@ -6,16 +6,19 @@ const FoodTable = props => {
   const [amount, setamount] = useState("");
   const [description, setdescription] = useState("");
   const [price, setprice] = useState("");
+  const [image,setImage] = useState("");
 
   const [editAmount,seteditAmount] = useState("")
 
   const submitForm = e => {
     e.preventDefault();
+    
     const newFood = {
       name,
       amount,
       description,
-      price
+      price,
+      image
     };
     props.AddFoodAdmin(newFood);
     setName("")
@@ -67,6 +70,15 @@ const FoodTable = props => {
                   onChange={e => setamount(e.target.value)}
                 />
               </div>
+              <div class="col-sm-4">
+                <input
+                  type="file"
+                  class="form-control"
+                  
+                  
+                  onChange={e => setImage(e.target.files[0])}
+                />
+              </div>
             </div>
             <div class="row" style={{ marginTop: "10px" }}>
               <div class="col-sm-4">
@@ -87,6 +99,7 @@ const FoodTable = props => {
                   onChange={e => setprice(e.target.value)}
                 />
               </div>
+              
               <div class="col-sm-4">
                 <input type="submit" class="btn btn-primary" />
               </div>
@@ -123,6 +136,18 @@ const FoodTable = props => {
                         >
                           <thead>
                             <tr role="row">
+                            <th
+                                className="sorting_asc"
+                                tabIndex={0}
+                                aria-controls="example1"
+                                rowSpan={1}
+                                colSpan={1}
+                                aria-sort="ascending"
+                                aria-label="Rendering engine: activate to sort column descending"
+                                style={{ width: 214 }}
+                              >
+                                Picture
+                              </th>
                               <th
                                 className="sorting_asc"
                                 tabIndex={0}
@@ -183,6 +208,7 @@ const FoodTable = props => {
                             {props.food.FoodsList.map(item => {
                               return (
                                 <tr role="row" className="odd" key={item._id}>
+                                  <td style={{width:"15%"}}><img style={{width:"70px",height:"50px"}} src={`http://localhost:5000/${item.productImage}`}/></td>
                                   <td>{item.name}</td>
                                   <td>
                                     <div class="form-group row">

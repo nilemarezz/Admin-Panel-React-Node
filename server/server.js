@@ -15,6 +15,8 @@ mongoose.connection.once("open", () => console.log("Connect to Database"));
 app.use(bodyParser.urlencoded({extended:true}))
 app.use(bodyParser.json())
 app.use(cors())
+app.use("/uploads",express.static('uploads'));
+
 // const seedAdmin = async ()=>{
     
 //     await Admin.create({user:"admin",password:"password",name:"Master1",department:"CEO"})

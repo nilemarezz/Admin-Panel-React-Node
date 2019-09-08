@@ -4,7 +4,33 @@ const Customer = require("../../models/Customer");
 const verify = require("../AuthAdmin/verifyToken");
 const Foods = require("../../models/Foods");
 const AdminUser = require("../../models/AdminUser");
-const multer = require('multer');
+const multer = require("multer");
+
+const storage = multer.diskStorage({
+  destination: function(req, file, cb) {
+    cb(null, "./uploads/");
+  },
+  filename: function(req, file, cb) {
+    const data = Math.random() * 10000 + 1;
+    console.log(data);
+    cb(null, data + file.originalname);
+  }
+});
+
+const fileFilter = (req, file, cb) => {
+  if (file.mimetype === "image/jpeg" || file.mimetype === "image/png") {
+    cb(null, true);
+  } else {
+    cb(null, false);
+  }
+};
+const upload = multer({
+  storage: storage,
+  limits: {
+    fileSize: 1 * 1024 * 1024
+  },
+  fileFilter:fileFilter
+});
 
 router.get("/", verify, async (req, res) => {
   const CustomerList = await Customer.find({});
@@ -26,12 +52,14 @@ router.get("/", verify, async (req, res) => {
   });
 });
 
-router.post("/addFood", verify, async (req, res) => {
+router.post("/addFood", verify, upload.single("image"), async (req, res) => {
+  console.log(req.body);
   const newFood = {
     name: req.body.name,
     amount: req.body.amount,
     description: req.body.description,
-    price: req.body.price
+    price: req.body.price,
+    productImage:req.file.path
   };
   try {
     const data = await Foods.create(newFood);
@@ -41,15 +69,15 @@ router.post("/addFood", verify, async (req, res) => {
   }
 });
 
-router.get("/getgender", verify , async (req,res)=>{
-  try{
-    const male = await Customer.find({gender:"Male"})
-    const female = await Customer.find({gender:"Female"})
-    res.json({numOfMale:male.length,numOfFemale:female.length})
-  }catch(err){
-    res.json({errorMsg:err})
+router.get("/getgender", verify, async (req, res) => {
+  try {
+    const male = await Customer.find({ gender: "Male" });
+    const female = await Customer.find({ gender: "Female" });
+    res.json({ numOfMale: male.length, numOfFemale: female.length });
+  } catch (err) {
+    res.json({ errorMsg: err });
   }
-})
+});
 
 router.post("/addCustomer", verify, async (req, res) => {
   const newCust = {
